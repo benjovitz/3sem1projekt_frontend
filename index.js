@@ -8,6 +8,8 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+import { initMap } from "./pages/map/map.js";
+import { initEditCinema } from "./pages/editCinema/editCinema.js";
 
 
 window.addEventListener("load", async () => {
@@ -16,6 +18,8 @@ window.addEventListener("load", async () => {
   const templateSignup = await loadTemplate("./pages/signup/signup.html")
   const templateLogin = await loadTemplate("./pages/login/login.html")
   const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
+  const templateMap = await loadTemplate("./pages/map/map.html")
+  const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
 
   adjustForMissingHash()
 
@@ -49,6 +53,15 @@ window.addEventListener("load", async () => {
       },
       "/logout": () => {
         logout()
+      },
+      "/map": () => {
+        renderTemplate(templateMap,"content")
+        initMap()
+      }
+      ,
+      "/edit-cinema": () => {
+        renderTemplate(templateEditCinema,"content")
+        initEditCinema()
       }
     })
     .notFound(() => {
