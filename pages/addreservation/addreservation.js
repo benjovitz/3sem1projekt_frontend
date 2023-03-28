@@ -14,7 +14,7 @@ let cinemaId
 let showingId
 
 window.addEventListener("load", async () => {
-    await setupSVG()
+    await setupSVG(await getOccupiedSeats())
     //setupSVG(seatsTest,resSeatsTest)  
     document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt)
     document.getElementById("btn-create-reservation").onclick = evt => createReservation()
@@ -32,10 +32,15 @@ async function initReservation(){
 
 }
 
-async function setupSVG(){
-    const cinemaSeats = await getCinemaSeats() 
+export async function setupSVG(givenOccupiedSeats){
+    const cinemaSeatsUnsorted = await getCinemaSeats() 
 
-    const occupiedSeats = await getOccupiedSeats()
+    const occupiedSeatsUnsorted = givenOccupiedSeats
+
+    const cinemaSeats = cinemaSeatsUnsorted.sort(function(a,b){return b - a})
+
+    const occupiedSeats = occupiedSeatsUnsorted.sort(function(a,b){return b - a})
+
     const seatRows = new Set()
     for(const seat of cinemaSeats){
         seatRows.add(seat.charAt(0))
@@ -100,7 +105,7 @@ function makeRowIdentifier(seatRows, longestRow, rowList, distanceX, distanceY){
     return rowIdentifiersString
 }
 
-function addSeatToReservation(evt){
+export function addSeatToReservation(evt){
 const seatNode = evt.target
 const seatId = seatNode.id
 const seatSplit = seatId.split("-")
@@ -131,7 +136,7 @@ async function getCinemaSeats(){
 }
 
 
-async function getOccupiedSeats(){
+export async function getOccupiedSeats(){
     const token = localStorage.getItem("token")
     try{
     const showReservations = await fetch(showURL+showingId,{

@@ -27,6 +27,7 @@ function makeReservationTableRow(userReservation){
     const reservationRowString = 
     `<tr>
     <td>${userReservation.movieName}</td>
+    <td>${userReservation.cinemaName}</td>
     <td>${userReservation.username}</td>
     <td>${userReservation.seats}</td>
     <td>${userReservation.dateTime}</td>
