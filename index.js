@@ -8,6 +8,9 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+import { initAdmin } from "./pages/admin/admin.js"
+import { initUsers } from "./pages/users/users.js"
+
 
 
 window.addEventListener("load", async () => {
@@ -16,6 +19,9 @@ window.addEventListener("load", async () => {
   const templateSignup = await loadTemplate("./pages/signup/signup.html")
   const templateLogin = await loadTemplate("./pages/login/login.html")
   const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
+  const templateAdmin = await loadTemplate("./pages/admin/admin.html")
+  const templateUsers = await loadTemplate("./pages/users/users.html")
+
 
   adjustForMissingHash()
 
@@ -43,6 +49,14 @@ window.addEventListener("load", async () => {
         renderTemplate(templateSignup, "content")
         initSignup()
       },
+        "/admin": () => {
+            renderTemplate(templateAdmin, "content")
+            initAdmin()
+        },
+        "/users": () => {
+            renderTemplate(templateUsers, "content")
+            initUsers()
+        },
       "/login": () => {
         renderTemplate(templateLogin, "content")
         initLogin()
