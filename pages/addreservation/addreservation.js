@@ -7,39 +7,34 @@ const cinURL = API_URL + "/cinema/"
 
 //const seatsTest = ["a1","a2","a3","a4","b1","b2","b3","c1","c2"]
 //const resSeatsTest = ["a1","a2","b2","c1","c2"]
+// For test - ?showingid=1&cinemaid=1
 
 const seats = []
 
-let cinemaId
-let showingId
 
-window.addEventListener("load", async () => {
-    await setupSVG(await getOccupiedSeats())
-    //setupSVG(seatsTest,resSeatsTest)  
-    document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt)
-    document.getElementById("btn-create-reservation").onclick = evt => createReservation()
-  })
-
-
-
-async function initReservation(){
-    window.addEventListener("load", async () => {
-        await setupSVG()
-        //setupSVG(seatsTest,resSeatsTest)  
-        document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt)
-        document.getElementById("btn-create-reservation").onclick = evt => createReservation()
-      })
-
+export async function initAddReservation(match){
+    if (match?.params?.showingid && match?.params?.cinemaid) {
+        const showingId = match.params.showingid
+        const cinemaId = match.params.cinemaid
+        try {
+            await setupSVG(await getOccupiedSeats(showingId),cinemaId)
+            //setupSVG(seatsTest,resSeatsTest)  
+            document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt, seats)
+            document.getElementById("btn-create-reservation").onclick = evt => createReservation(showingId)
+        }catch(err){
+            document.getElementById("error-text").innerText = err.message
+        }
+    }
 }
 
-export async function setupSVG(givenOccupiedSeats){
-    const cinemaSeatsUnsorted = await getCinemaSeats() 
+export async function setupSVG(givenOccupiedSeats,cinemaId){
+    const cinemaSeats = await getCinemaSeats(cinemaId) 
 
-    const occupiedSeatsUnsorted = givenOccupiedSeats
+    const occupiedSeats = givenOccupiedSeats
 
-    const cinemaSeats = cinemaSeatsUnsorted.sort(function(a,b){return b - a})
+    cinemaSeats.sort()
 
-    const occupiedSeats = occupiedSeatsUnsorted.sort(function(a,b){return b - a})
+    occupiedSeats.sort()
 
     const seatRows = new Set()
     for(const seat of cinemaSeats){
@@ -88,7 +83,7 @@ function makeSVGHTML(rowNumber, seatNumber, longestRow, id, rowSize, resSeats, d
     const positionY = acnhorPointY + (distanceY*rowNumber) 
 
     const stringRow = `<rect x=${positionX} y=${positionY} width="50" height="50" rx="7" ry="7" id="seat-${id}" fill="${seatColor}"pointer-events="${seatClickable}"/>
-     <text x=${positionX+18} y=${positionY+35} font-size="30" fill="white" class="seat-text">${seatNumber+1}</text>`
+     <text x=${positionX+16} y=${positionY+35} font-size="30" fill="white" class="seat-text">${seatNumber+1}</text>`
 
     return stringRow
 }
@@ -105,23 +100,23 @@ function makeRowIdentifier(seatRows, longestRow, rowList, distanceX, distanceY){
     return rowIdentifiersString
 }
 
-export function addSeatToReservation(evt){
+export function addSeatToReservation(evt, seatArray){
 const seatNode = evt.target
 const seatId = seatNode.id
 const seatSplit = seatId.split("-")
 if(seatId!="seat-svg"){
-    if(seats.includes(seatSplit[1])){
+    if(seatArray.includes(seatSplit[1])){
         seatNode.style.fill = "black"
-        seats.splice(seats.indexOf(seatSplit[1]),1)
+        seatArray.splice(seatArray.indexOf(seatSplit[1]),1)
     }
     else{
         seatNode.style.fill = "green"
-        seats.push(seatSplit[1])
+        seatArray.push(seatSplit[1])
     }
 }
 }
 
-async function getCinemaSeats(){
+async function getCinemaSeats(cinemaId){
     const token = localStorage.getItem("token")
     try{
         const cinema = await fetch(cinURL+cinemaId,{
@@ -136,7 +131,7 @@ async function getCinemaSeats(){
 }
 
 
-export async function getOccupiedSeats(){
+export async function getOccupiedSeats(showingId){
     const token = localStorage.getItem("token")
     try{
     const showReservations = await fetch(showURL+showingId,{
@@ -154,7 +149,7 @@ export async function getOccupiedSeats(){
 }
 
 
-async function createReservation(){
+async function createReservation(showingId){
     const token = localStorage.getItem("token")
     try{
     await fetch(resURL, {
@@ -166,7 +161,7 @@ async function createReservation(){
         body: JSON.stringify({showingId,seats})
     }).then(handleHttpErrors)
 
-    window.router.navigate("userreservations") 
+    window.router.navigate("/user/reservations")
     }catch(err){
         document.getElementById("error-text").innerText = err.message 
     }

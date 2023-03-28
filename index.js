@@ -8,7 +8,9 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
-
+import { initAddReservation } from "./pages/addreservation/addreservation.js";
+import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
+import { InitUserReservations } from "./pages/userreservations/userreservations.js";
 
 window.addEventListener("load", async () => {
 
@@ -16,6 +18,9 @@ window.addEventListener("load", async () => {
   const templateSignup = await loadTemplate("./pages/signup/signup.html")
   const templateLogin = await loadTemplate("./pages/login/login.html")
   const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
+  const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
+  const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
+  const templateUserReservations = await loadTemplate("./pages/userreservations/userreservations.html")
 
   adjustForMissingHash()
 
@@ -49,6 +54,18 @@ window.addEventListener("load", async () => {
       },
       "/logout": () => {
         logout()
+      },
+      "/user/reservations": () => {
+        renderTemplate(templateUserReservations, "content")
+        InitUserReservations()
+      },
+      "/showing/reservation": (match) => {
+        renderTemplate(templateShowingReservations,"content")
+        InitShowingReservations()
+      },
+      "/create/reservation": (match) => {
+        renderTemplate(templateAddReservation,"content")
+        initAddReservation(match)
       }
     })
     .notFound(() => {

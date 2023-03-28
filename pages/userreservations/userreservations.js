@@ -1,13 +1,13 @@
 import { API_URL } from "../../settings.js";
 import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 
-const URL = API_URL+"reservations"
+const URL = API_URL+"/reservations/"
 
-function userResInnit(){
+export function InitUserReservations(){
     getUserReservations()
 }
 
-async function getUserReservations(){
+export async function getUserReservations(){
     const token = localStorage.getItem("token")
     try{
     const userReservations = await fetch(URL, {

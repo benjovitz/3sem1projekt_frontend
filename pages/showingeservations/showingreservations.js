@@ -4,18 +4,24 @@ import { addSeatToReservation, getOccupiedSeats, setupSVG } from "../addreservat
 
 const URL = API_URL + "reservations/"
 
-let showingId
 const seats = []
 
-function cinemaReservationsInnit(){
-    window.addEventListener("load", async () => {
-    getShowingReservations()
-    document.getElementById("tbody").onclick = evt => makeModalBody(evt)
-    document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt)
-    })
+export async function InitShowingReservations(match){
+    if (match?.params?.showingid) {
+        const showingId = match.params.showingid
+        try {
+            await getShowingReservations(showingId)
+            document.getElementById("tbody").onclick = evt => makeModalBody(evt)
+            document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt,seats)
+            document.getElementById("modal-btns").onclick = evt => editReservation(evt)
+        }catch(err){
+            document.getElementById("error-text").innerText = err.message
+        }
+}
+    
 }
 
-async function getShowingReservations(){
+async function getShowingReservations(showingId){
     const token = localStorage.getItem("token")
     try{
     const showingReservations = await fetch(URL + 'cinema/'+showingId , {
@@ -64,6 +70,12 @@ async function makeModalBody(evt){
         await setupSVG(updatedSeats)
 
         addPreviousSeats(previousSeats)
+
+        const modalButtomsString = `
+        <button id="btn-edit-${resId}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-close-modal" type="button" class="btn btn-primary">Save changes</button>
+        `
+        document.getElementById("modal-btns").innerHTML = sanitizeStringWithTableRows(modalButtomsString)
     }
 
 }
@@ -93,5 +105,33 @@ async function getReservationById(resId){
     return reservation.seats
     }catch(err){
         document.getElementById("error-text").innerText = err.message
+    }
+}
+
+async function editReservation(evt){
+
+    const target = evt.target
+    const targetId = target.id
+    const targetIdSplit = targetId.split("-")
+    const resId = targetIdSplit[2]
+
+    if(targetIdSplit[1] == 'edit'){
+        const token = localStorage.getItem("token")
+        try{
+        await fetch(URL + resId, {
+            method:'PUT',
+            headers:{ 
+                'Content-Type': 'application/json',
+                "Authorization":"Bearer "+ token
+            },
+            body: JSON.stringify({seats})
+        }).then(handleHttpErrors)
+
+        document.getElementById("modal-result").style.color = "green"
+        document.getElementById("modal-result").innerText = 'Success'
+        }catch(err){
+            document.getElementById("modal-result").style.color = "red"
+            document.getElementById("modal-result").innerText = err.message 
+        }
     }
 }
