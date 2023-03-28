@@ -5,6 +5,8 @@ let URL = API_URL+"/chat/"
 
 let headers = new Headers()
 
+localStorage.setItem("chatStarted","false")
+
 headers.set("content-type","application/json")
 
 document.getElementById("collapse").onclick=collapse
