@@ -3,18 +3,18 @@ import { API_URL,getHeaders } from "../../settings.js"
 
 let URL = API_URL+"/cinema/"
 
-let headers = getHeaders()
-
-export async function initEditCinema(){
-    try {
-        const cinema = await fetch(URL+"edit",{
-            headers:headers
-        }).then(handleHttpErrors)
-        console.log(cinema)
-        renderCinema(cinema[0])
-    } catch (error) {
-        
+export async function initCinema(match){
+    if(match?.params?.id){
+        const id= match.params.id
+        try {
+            const cinema = await fetch(URL+id).then(handleHttpErrors)
+            console.log(cinema)
+            renderCinema(cinema)
+        } catch (error) {
+            
+        }
     }
+    
 }
 
 function renderCinema(cinema){

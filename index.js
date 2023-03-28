@@ -10,6 +10,8 @@ import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
 import { initMap } from "./pages/map/map.js";
 import { initEditCinema } from "./pages/editCinema/editCinema.js";
+import { initCinema } from "./pages/cinemaSite/cinemaSite.js";
+import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 
 
 window.addEventListener("load", async () => {
@@ -20,6 +22,8 @@ window.addEventListener("load", async () => {
   const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
   const templateMap = await loadTemplate("./pages/map/map.html")
   const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
+  const templateCineamSite = await loadTemplate("./pages/cinemaSite/cinemaSite.html")
+  const templateAllCinemas = await loadTemplate("./pages/allCinemas/allCinemas.html")
 
   adjustForMissingHash()
 
@@ -57,11 +61,18 @@ window.addEventListener("load", async () => {
       "/map": () => {
         renderTemplate(templateMap,"content")
         initMap()
-      }
-      ,
+      },
       "/edit-cinema": () => {
         renderTemplate(templateEditCinema,"content")
         initEditCinema()
+      },
+      "/cinemaSite": (match) => {
+        renderTemplate(templateCineamSite,"content")
+        initCinema(match)
+      },
+      "/all-cinemas": () => {
+        renderTemplate(templateAllCinemas,"content")
+        initAllCinemas()
       }
     })
     .notFound(() => {
