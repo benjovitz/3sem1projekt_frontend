@@ -1,0 +1,39 @@
+<template>
+  <style> .seat-text{pointer-events: none}</style>
+    <div>
+      <p id="error-text" style="color:red"></p>
+        <h3>Reservations for showing</h3>
+        <table class="table" style="max-width:1000px;">
+          <thead>
+            <tr>
+              <th>Movie</th>
+              <th>Username</th>
+              <th>Seats</th>
+              <th>Showtime</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>
+      </div>
+
+    <div class="modal fade" id="reservation-modal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reservationModalLabel">Edit reservation</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="svg-content" class="modal-content">
+              <div id="seat-svg"></div>
+            </div>
+            <div id="modal-btns" class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+
+</template>

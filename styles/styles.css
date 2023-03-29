@@ -19,6 +19,16 @@ Styles used for labels and input fields in boot strap columns
   border: 1px solid lightgray;
 }
 
+
+footer{
+  background-color: black;
+  color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+=======
 .chatbox {
   position: fixed;
   bottom: 0;
@@ -74,4 +84,5 @@ button[type="submit"] {
 #collapse{
   cursor: pointer;
 }
+
 
