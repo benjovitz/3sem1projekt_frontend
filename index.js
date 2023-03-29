@@ -8,6 +8,9 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+import { initAdmin } from "./pages/admin/admin.js"
+import { initUsers } from "./pages/users/users.js"
+
 import { initMap } from "./pages/map/map.js";
 import { initEditCinema } from "./pages/editCinema/editCinema.js";
 import { initCinema } from "./pages/cinemaSite/cinemaSite.js";
@@ -16,6 +19,7 @@ import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
 import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
 import { InitUserReservations } from "./pages/userreservations/userreservations.js";
+
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
 
@@ -36,6 +40,13 @@ window.addEventListener("load", async () => {
   const templateUserReservations = await loadTemplate("./pages/userreservations/userreservations.html")
 
   document.getElementById("btn-send-chat").onclick = initChatRobot
+  const templateAdmin = await loadTemplate("./pages/admin/admin.html")
+  const templateUsers = await loadTemplate("./pages/users/users.html")
+
+    if (localStorage.token != null) {
+        document.getElementById("login-id").style.display="none"
+        document.getElementById("logout-id").style.display="block"
+    }
 
 
   adjustForMissingHash()
@@ -63,6 +74,14 @@ window.addEventListener("load", async () => {
         renderTemplate(templateSignup, "content")
         initSignup()
       },
+        "/admin": () => {
+            renderTemplate(templateAdmin, "content")
+            initAdmin()
+        },
+        "/users": () => {
+            renderTemplate(templateUsers, "content")
+            initUsers()
+        },
       "/login": () => {
         renderTemplate(templateLogin, "content")
         initLogin()
