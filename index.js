@@ -8,6 +8,10 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+import { initMap } from "./pages/map/map.js";
+import { initEditCinema } from "./pages/editCinema/editCinema.js";
+import { initCinema } from "./pages/cinemaSite/cinemaSite.js";
+import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
 import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
@@ -22,6 +26,10 @@ window.addEventListener("load", async () => {
   const templateSignup = await loadTemplate("./pages/signup/signup.html")
   const templateLogin = await loadTemplate("./pages/login/login.html")
   const templateNotFound = await loadTemplate("./pages/notFound/notFound.html")
+  const templateMap = await loadTemplate("./pages/map/map.html")
+  const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
+  const templateCineamSite = await loadTemplate("./pages/cinemaSite/cinemaSite.html")
+  const templateAllCinemas = await loadTemplate("./pages/allCinemas/allCinemas.html")
 
   const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
   const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
@@ -47,9 +55,8 @@ window.addEventListener("load", async () => {
       //For very simple "templates", you can just insert your HTML directly like below
       "/": () => document.getElementById("content").innerHTML = `
         <h2>Home</h2>
-        <img style="width:50%;max-width:600px;margin-top:1em;" src="./images/cars.png">
         <p style='margin-top:1em;font-size: 1.5em;color:darkgray;'>
-          Car's 'R' Us - Created, as a help to make GREAT fullstack developers <span style='font-size:2em;'>&#128516;</span>
+          TBD
         </p>
      `,
       "/signup": () => {
@@ -63,6 +70,23 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
+
+      "/map": () => {
+        renderTemplate(templateMap,"content")
+        initMap()
+      },
+      "/edit-cinema": () => {
+        renderTemplate(templateEditCinema,"content")
+        initEditCinema()
+      },
+      "/cinemaSite": (match) => {
+        renderTemplate(templateCineamSite,"content")
+        initCinema(match)
+      },
+      "/all-cinemas": () => {
+        renderTemplate(templateAllCinemas,"content")
+        initAllCinemas()
+
       "/user/reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
@@ -74,6 +98,7 @@ window.addEventListener("load", async () => {
       "/create/reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
+
       }
     })
     .notFound(() => {
