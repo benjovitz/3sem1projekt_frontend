@@ -61,7 +61,7 @@ window.addEventListener("load", async () => {
       },
       "/showing/reservation": (match) => {
         renderTemplate(templateShowingReservations,"content")
-        InitShowingReservations()
+        InitShowingReservations(match)
       },
       "/create/reservation": (match) => {
         renderTemplate(templateAddReservation,"content")

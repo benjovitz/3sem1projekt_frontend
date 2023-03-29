@@ -2,22 +2,26 @@ import { API_URL } from "../../settings.js";
 import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 import { addSeatToReservation, getOccupiedSeats, setupSVG } from "../addreservation/addreservation.js";
 
-const URL = API_URL + "reservations/"
+const URL = API_URL + "/reservations/"
 
 const seats = []
 
 export async function InitShowingReservations(match){
-    if (match?.params?.showingid) {
+    if (match?.params?.showingid && match?.params?.cinemaid) {
         const showingId = match.params.showingid
+        const cinemaId = match.params.cinemaid
         try {
             await getShowingReservations(showingId)
-            document.getElementById("tbody").onclick = evt => makeModalBody(evt)
-            document.getElementById("seat-svg").onclick = evt => addSeatToReservation(evt,seats)
-            document.getElementById("modal-btns").onclick = evt => editReservation(evt)
+            document.getElementById("tbody").onclick = evt => makeModalBody(evt, showingId, cinemaId)
+            document.getElementById("svg-content").onclick = evt => addSeatToReservation(evt,seats)
+            document.getElementById("modal-btns").onclick = evt => editReservation(evt, showingId)
         }catch(err){
             document.getElementById("error-text").innerText = err.message
         }
-}
+    }
+    else{
+        document.getElementById("error-text").innerText = 'Missing match parameters cinemaid and/or showingid'
+    }
     
 }
 
@@ -29,6 +33,7 @@ async function getShowingReservations(showingId){
     }).then(handleHttpErrors)
     const showingReservationsString = showingReservations.map(makeReservationTableRow)
     const reservationlistString = showingReservationsString.join("")
+
 
     document.getElementById("tbody").innerHTML = sanitizeStringWithTableRows(reservationlistString)
 
@@ -46,14 +51,15 @@ function makeReservationTableRow(showingReservation){
     <td>${showingReservation.dateTime}</td>
     <td>${showingReservation.priceSum +" kr"}</td>
     <td>
-    <buttom id="btn-openmodal-${showingReservation.id}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation-modal">Edit</buttom>
-    <buttom id="btn-cancel-reservation-${showingReservation.id}" type="button" class="btn btn-secondary">Cancel</buttom>
+    <button id="btn-openmodal-${showingReservation.id}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservation-modal">Edit</button>
+    <button id="btn-remove-reservation-${showingReservation.id}" type="button" class="btn btn-warning">Remove</button>
     </td>
     </tr>` 
     return reservationRowString
 }
 
-async function makeModalBody(evt){
+async function makeModalBody(evt, showingId, cinemaId){
+    seats.length = 0
     const target = evt.target
     const targetId = target.id
     
@@ -62,37 +68,51 @@ async function makeModalBody(evt){
     if(targetIdSplit[1]== 'openmodal'){
         const resId = targetIdSplit[2]
 
-        const occupiedSeats = await getOccupiedSeats()
+        const occupiedSeats = await getOccupiedSeats(showingId)
         const previousSeats = await getReservationById(resId)
+
+
 
         const updatedSeats = occupiedSeats.filter(n => !(previousSeats.includes(n)))
 
-        await setupSVG(updatedSeats)
+        await setupSVG(updatedSeats, cinemaId)
 
         addPreviousSeats(previousSeats)
 
         const modalButtomsString = `
-        <button id="btn-edit-${resId}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="btn-close-modal" type="button" class="btn btn-primary">Save changes</button>
+        <button id="btn-close-modal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="btn-edit-${resId}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
         `
         document.getElementById("modal-btns").innerHTML = sanitizeStringWithTableRows(modalButtomsString)
+    } else if(targetIdSplit[1]== 'remove'){
+        const resId = targetIdSplit[3]
+        removeReservation(resId,showingId)
     }
 
 }
 
-function addPreviousSeats(seatIds){
-    for(const seatId of seatIds){
-        if(seatId!="seat-svg"){
-            if(seats.includes(seatId)){
-                document.getElementById('seat-'+seatId).style.fill = "black"
-                seats.splice(seats.indexOf(seatId),1)
-            }
-            else{
-                document.getElementById('seat-'+seatId).style.fill = "green"
-                seats.push(seatId)
-            }
-        }
+async function removeReservation(resId,showingId){
+    const token = localStorage.getItem("token")
+    try{ 
+        await fetch(URL+resId,{
+            method: "DELETE",
+            headers: { 'Authorization': 'Bearer ' + token}
+        })//No handleHTTPerror due to void response
+    }catch(err){
+        console.log('hej')
+        document.getElementById("error-text").innerText = err.message
     }
+
+    await getShowingReservations(showingId)
+}
+
+function addPreviousSeats(seatIds){
+    console.log(seatIds)
+    for(const seatId of seatIds){
+        document.getElementById('seat-'+seatId).style.fill = "green"
+        seats.push(seatId)
+    }
+    console.log(seats)
 }
 
 
@@ -108,7 +128,7 @@ async function getReservationById(resId){
     }
 }
 
-async function editReservation(evt){
+async function editReservation(evt, showingId){
 
     const target = evt.target
     const targetId = target.id
@@ -126,12 +146,10 @@ async function editReservation(evt){
             },
             body: JSON.stringify({seats})
         }).then(handleHttpErrors)
-
-        document.getElementById("modal-result").style.color = "green"
-        document.getElementById("modal-result").innerText = 'Success'
+            document.getElementById("error-text").innerText = ""
         }catch(err){
-            document.getElementById("modal-result").style.color = "red"
-            document.getElementById("modal-result").innerText = err.message 
+            document.getElementById("error-text").innerText = err.message 
         }
     }
+    await getShowingReservations(showingId)
 }
