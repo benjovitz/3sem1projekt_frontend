@@ -63,7 +63,7 @@ footer{
 }
 
 
-form {
+.formChat {
   display: flex;
   align-items: center;
 }
