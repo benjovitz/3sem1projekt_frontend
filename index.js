@@ -10,8 +10,11 @@ import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
 import { initAdmin } from "./pages/admin/admin.js"
 import { initUsers } from "./pages/users/users.js"
+import { initReviews } from "./pages/review/review.js"
+import { initCinemaReviews } from "./pages/cinemaReviews/cinemaReviews.js"
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
+
 
 
 window.addEventListener("load", async () => {
@@ -23,6 +26,8 @@ window.addEventListener("load", async () => {
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
+  const templateReviews = await loadTemplate("./pages/review/review.html")
+  const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -62,6 +67,14 @@ window.addEventListener("load", async () => {
         "/users": () => {
             renderTemplate(templateUsers, "content")
             initUsers()
+        },
+        "/reviews": () => {
+            renderTemplate(templateReviews, "content")
+            initReviews()
+        },
+        "/cinema-reviews": () => {
+            renderTemplate(templateCinemaReviews, "content")
+            initCinemaReviews()
         },
       "/login": () => {
         renderTemplate(templateLogin, "content")
