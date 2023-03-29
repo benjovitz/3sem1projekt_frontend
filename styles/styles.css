@@ -19,6 +19,7 @@ Styles used for labels and input fields in boot strap columns
   border: 1px solid lightgray;
 }
 
+
 footer{
   background-color: black;
   color: white;
@@ -27,3 +28,61 @@ footer{
   bottom: 0;
   width: 100%;
 }
+=======
+.chatbox {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 40vh;
+}
+
+.messages {
+  max-height: 50vh; 
+  padding: 10px;
+  overflow: auto; 
+}
+
+.message {
+  display: flex;
+  margin-bottom: 10px;
+  overflow: auto; 
+}
+
+.received p {
+  background-color: #f1f0f0;
+  word-wrap: break-word; 
+}
+
+.sent p {
+  background-color: #0b93f6;
+  color: #fff;
+  word-wrap: break-word; 
+}
+
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+}
+
+button[type="submit"] {
+  padding: 10px;
+  background-color: #0b93f6;
+  color: #fff;
+  border: none;
+  cursor:pointer;
+}
+#collapse{
+  cursor: pointer;
+}
+
+

@@ -13,6 +13,12 @@ import { initEditCinema } from "./pages/editCinema/editCinema.js";
 import { initCinema } from "./pages/cinemaSite/cinemaSite.js";
 import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 
+import { initAddReservation } from "./pages/addreservation/addreservation.js";
+import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
+import { InitUserReservations } from "./pages/userreservations/userreservations.js";
+
+import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
+
 
 window.addEventListener("load", async () => {
 
@@ -24,6 +30,13 @@ window.addEventListener("load", async () => {
   const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
   const templateCineamSite = await loadTemplate("./pages/cinemaSite/cinemaSite.html")
   const templateAllCinemas = await loadTemplate("./pages/allCinemas/allCinemas.html")
+
+  const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
+  const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
+  const templateUserReservations = await loadTemplate("./pages/userreservations/userreservations.html")
+
+  document.getElementById("btn-send-chat").onclick = initChatRobot
+
 
   adjustForMissingHash()
 
@@ -57,6 +70,7 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
+
       "/map": () => {
         renderTemplate(templateMap,"content")
         initMap()
@@ -72,6 +86,19 @@ window.addEventListener("load", async () => {
       "/all-cinemas": () => {
         renderTemplate(templateAllCinemas,"content")
         initAllCinemas()
+
+      "/user/reservations": () => {
+        renderTemplate(templateUserReservations, "content")
+        InitUserReservations()
+      },
+      "/showing/reservation": (match) => {
+        renderTemplate(templateShowingReservations,"content")
+        InitShowingReservations(match)
+      },
+      "/create/reservation": (match) => {
+        renderTemplate(templateAddReservation,"content")
+        initAddReservation(match)
+
       }
     })
     .notFound(() => {
