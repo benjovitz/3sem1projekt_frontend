@@ -22,6 +22,10 @@ window.addEventListener("load", async () => {
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
 
+    if (localStorage.token != null) {
+        document.getElementById("login-id").style.display="none"
+        document.getElementById("logout-id").style.display="block"
+    }
 
   adjustForMissingHash()
 
