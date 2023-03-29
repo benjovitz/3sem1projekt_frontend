@@ -89,7 +89,6 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
-
       "/map": () => {
         renderTemplate(templateMap,"content")
         initMap()
@@ -105,7 +104,7 @@ window.addEventListener("load", async () => {
       "/all-cinemas": () => {
         renderTemplate(templateAllCinemas,"content")
         initAllCinemas()
-
+      },
       "/user/reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
