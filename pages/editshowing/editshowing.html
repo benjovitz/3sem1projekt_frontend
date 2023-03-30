@@ -19,7 +19,15 @@
                   <button id="btn-openmodal-movie" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#movie-modal">Choose movie</button>
                 </div>
                 <div class="col-md-8">
-                  <input type="text" id="movie-name" placeholder="id" style="width:50px;" required disabled>
+                  <input type="text" id="movie-id" placeholder="id" style="width:50px;" required disabled>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="movie-name"><b>Movie</b></label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" placeholder="Movie title" id="movie-name" style="border:solid; border-width: 1px; border-color:darkgrey;" required disabled>
                 </div>
               </div>
               <div class="row">
@@ -59,8 +67,19 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div id="movie-content" class="modal-content">
-                
+              <div  class="modal-content">
+                <table class="table" style="max-width:1000px;">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Playtime</th>
+                      <th>Description</th>
+                      <th>Genre</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modal-tbody">
+                  </tbody>
+                </table>
               </div>
               <div id="modal-btns" class="modal-footer">
               </div>

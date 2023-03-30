@@ -90,7 +90,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)
       },
-      "/edit/reservation": (match) => {
+      "/edit/showing": (match) => {
         renderTemplate(templateEditShowing,"content")
         initEditShowing(match)
       },
