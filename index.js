@@ -12,6 +12,7 @@ import { initAdmin } from "./pages/admin/admin.js"
 import { initUsers } from "./pages/users/users.js"
 import { initReviews } from "./pages/review/review.js"
 import { initCinemaReviews } from "./pages/cinemaReviews/cinemaReviews.js"
+import { initAddReview } from "./pages/addReview/addReview.js"
 
 
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
@@ -37,6 +38,7 @@ window.addEventListener("load", async () => {
   const templateUsers = await loadTemplate("./pages/users/users.html")
   const templateReviews = await loadTemplate("./pages/review/review.html")
   const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
+  const templateAddReview = await loadTemplate("./pages/addReview/addReview.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -92,6 +94,10 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
+        "/add-review": () => {
+            renderTemplate(templateAddReview,"content")
+            InitAddReview()
+        },
       "/user/reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()

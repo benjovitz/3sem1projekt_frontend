@@ -1,0 +1,65 @@
+<template>
+    <style>
+        .star-rating {
+            font-size: 2rem;
+        }
+
+        .star {
+            cursor: pointer;
+        }
+
+        .star:hover,
+        .star.active {
+            color: gold;
+        }
+    </style>
+    <h3 style="margin-top: 0.5em;min-height: 1em;">Add cinema review</h3>
+    <hr />
+    <div>
+        <form id="form" style="max-width: 800px;">
+            <div class="star-rating">
+                <span class="star" data-rating="1">&#9733;</span>
+                <span class="star" data-rating="2">&#9733;</span>
+                <span class="star" data-rating="3">&#9733;</span>
+                <span class="star" data-rating="4">&#9733;</span>
+                <span class="star" data-rating="5">&#9733;</span>
+            </div>
+
+            <p>Bedømmelse: <span id="rating">0</span> stjerner</p>
+
+                <div class="row">
+                <div class="col-md-2">
+                    <label for="model">Model</label>
+                </div>
+                <div class="col-md-10">
+                    <input id="model" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="model">price (day)</label>
+                </div>
+                <div class="col-md-4">
+                    <input type=number id="price-pr-day" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="best-discount">
+                        Best discount
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <input type=number id="best-discount">
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <p id="status" style="min-height: 1em;margin-top:0.5em;"> </p>
+                <div style="margin-top:2em;">
+                    <button id="addReview-btn" class="btn btn-dark">Submit new car</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
