@@ -7,13 +7,13 @@ const URL = API_URL + "/showings/"
 export function initAddShowing(match){
     if (match?.params?.cinemaid) {
         const cinemaId = match.params.cinemaid
-            try {
-    document.getElementById("btn-create-showing").onclick = evt => createShowing(cinemaId)
+        document.getElementById("btn-create-showing").onclick = evt => createShowing(cinemaId)
         } 
-    catch(err){
-        document.getElementById("error-text").innerText = err.message
-    }}
+    else{
+        document.getElementById("error-text").innerText = 'Missing match parameter cinemaid'
+    }
 }
+
 
 async function createShowing(cinemaId){
     const token = localStorage.getItem("token")

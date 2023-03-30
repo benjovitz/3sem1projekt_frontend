@@ -6,13 +6,12 @@ const URL = API_URL + "/showings/"
 export function initEditShowing(match){
     if (match?.params?.showingid) {
         const showingId = match.params.showingid
-            try {
-    document.getElementById("btn-edit-showing").onclick = evt => editShowing(showingId)
-    document.getElementById("btn-delete-showing").onclick = evt => deleteShowing(showingId)
-        } 
-    catch(err){
-        document.getElementById("error-text").innerText = err.message
-    }}
+        document.getElementById("btn-edit-showing").onclick = evt => editShowing(showingId)
+        document.getElementById("btn-delete-showing").onclick = evt => deleteShowing(showingId)
+
+    }else{
+        document.getElementById("error-text").innerText = 'Missing match parameter cinemaid'
+    }
 }
 
 

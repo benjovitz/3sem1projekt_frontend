@@ -3,7 +3,7 @@ import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 
 const URL = API_URL + '/showings/user'
 
-function initUserShowings(){
+export function initUserShowings(){
     getAllShowings()
     document.getElementById("tbody").onclick = evt => goToCreateReservation(evt)
     document.getElementById("btn-search-city").onclick = evt => getAllShowings()
@@ -11,17 +11,18 @@ function initUserShowings(){
 
 async function getAllShowings(){
     const search = document.getElementById("input-search-city").value
+
     const token = localStorage.getItem("token")
     try{
     let showings = await fetch(URL, {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(handleHttpErrors)
 
-    if(search != null){
+    if(search.length != 0 ){
         showings = showings.filter(n => filterByCity(search,n.city))
     }
 
-    const showingsStringArray = showings.map(makeShowingTableRow())
+    const showingsStringArray = showings.map(n =>makeShowingTableRow(n))
     const showingsString = showingsStringArray.join("")
 
     document.getElementById("tbody").innerHTML = sanitizeStringWithTableRows(showingsString)
@@ -32,11 +33,11 @@ async function getAllShowings(){
 }
 
 function filterByCity(search,city){ 
-    if(city.lenght < search.lenght){
+    if(city.length < search.length){
         return false
     }
-    const citySubString = city.subString(0,search.lenght)
-    if(citySubString == search){
+    const citySubString = city.substring(0,search.length)
+    if(citySubString.toLowerCase() == search.toLowerCase()){
         return true
     }
     return false
@@ -64,6 +65,6 @@ function goToCreateReservation(evt){
     const cinemaId = targetIdSplit[3]
     const showingId = targetIdSplit[4]
     if(targetIdSplit[1]=='create'){
-        window.router.navigate(`/create/reservation?${cinemaId}&${showingId}`)
+        window.router.navigate(`/create/reservation?showingid=${showingId}&cinemaid=${cinemaId}`)
     }
 }
