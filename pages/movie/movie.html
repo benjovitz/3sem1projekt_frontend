@@ -1,0 +1,65 @@
+<template>
+    <h1>All of the movies</h1>
+    <table class="table">
+        <th>name</th>
+        <th>playtime</th>
+        <th>description</th>
+        <th>genre</th>
+        <tbody id="tbody"></tbody>
+    </table>
+
+
+    <div class="item">
+        <h3>Add a Movie </h3>
+        <form id="new-movie-form">
+          <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="name-id" name="name" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="playTime" class="col-sm-2 col-form-label">playtime</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="playTime-id" name="playTime" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="description" class="col-sm-2 col-form-label">description</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="description-id" name="description" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="genre" class="col-sm-2 col-form-label">genre</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="genre-id" name="genre" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="imdb-id" class="col-sm-2 col-form-label">imdb-id</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="imdb-id" name="imdb">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-sm-10 offset-sm-2">
+              <button id="btn-submit-movie" class="btn btn-outline-dark">Submit movie</button>
+              <button id="add-new-btn" class="btn btn-outline-dark">Clear</button>     
+              <button id="add-new-imdb" class="btn btn-outline-dark">add from imdb</button>     
+            </div>
+          </div>
+
+          
+        </form>
+        <p id="new-movie-status"></p>
+    
+      </div>
+
+      <div class = "div1">
+        <label for="delete">delete by id</label>
+        <input type="text" id="deleteName" name="delete" required>
+        <button id="delete-btn" class="btn btn-outline-dark">Delete movie</button>
+      </div>
+
+</template>
