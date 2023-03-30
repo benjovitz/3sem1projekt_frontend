@@ -13,6 +13,7 @@ import { initUsers } from "./pages/users/users.js"
 import { initReviews } from "./pages/review/review.js"
 import { initCinemaReviews } from "./pages/cinemaReviews/cinemaReviews.js"
 import { initAddReview } from "./pages/addReview/addReview.js"
+import { initAddUserReview } from "./pages/addUserReview/addUserReview.js"
 
 
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
@@ -39,6 +40,7 @@ window.addEventListener("load", async () => {
   const templateReviews = await loadTemplate("./pages/review/review.html")
   const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
   const templateAddReview = await loadTemplate("./pages/addReview/addReview.html")
+  const templateAddUserReview = await loadTemplate("./pages/addUserReview/addUserReview.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -96,7 +98,11 @@ window.addEventListener("load", async () => {
       },
         "/add-review": () => {
             renderTemplate(templateAddReview,"content")
-            InitAddReview()
+            initAddReview()
+        },
+        "/add-user-review": () => {
+            renderTemplate(templateAddUserReview,"content")
+            initAddUserReview()
         },
       "/user/reservations": () => {
         renderTemplate(templateUserReservations, "content")

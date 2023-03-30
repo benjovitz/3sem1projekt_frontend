@@ -4,8 +4,8 @@ import { handleHttpErrors } from "../../utils.js";
 const URL = API_URL + "/review/";
 let rating = 0
 
-export function initAddReview() {
-    document.getElementById("addReview-btn").onclick = addCinemaReview;
+export function initAddUserReview() {
+    document.getElementById("addReview-btn").onclick = addUserReview;
     document.getElementById("stars-container").addEventListener("click", evt => {
         const star = evt.target.closest(".star")
         if (star) {
@@ -15,7 +15,7 @@ export function initAddReview() {
     });
 }
 
-async function addCinemaReview(cinemaID) {
+async function addUserReview(username) {
     document.getElementById("error").innerText = ""
 
     const rate = rating
@@ -33,7 +33,7 @@ async function addCinemaReview(cinemaID) {
         body: JSON.stringify(reviewDto)
     }
     try {
-        const response = await fetch(URL+"cinema/"+cinemaID, options).then(res => handleHttpErrors(res))
+        const response = await fetch(URL+"user/"+username, options).then(res => handleHttpErrors(res))
     } catch (err) {
         document.getElementById("error").innerText = err.message
     }
@@ -50,9 +50,3 @@ function updateRating() {
         }
     });
 }
-
-
-
-
-
-
