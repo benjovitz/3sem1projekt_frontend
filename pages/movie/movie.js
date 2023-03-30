@@ -1,5 +1,5 @@
 
-import { handleHttpErrors } from "../../utils.js";
+import {handleHttpErrors, sanitizeStringWithTableRows} from "../../utils.js";
 import { API_URL,getHeaders } from "../../settings.js";
 
 let headers = getHeaders()
@@ -11,24 +11,22 @@ let formAddMovie
 
 
 
-export async function initMovie(){
-    try{
+export async function InitMovie(){
         formAddMovie = /** @type {HTMLFormElement} */  (document.getElementById('new-movie-form'));
+
+        updateUI()
         document.getElementById("add-new-btn").onclick = clearMovie
         document.getElementById("btn-submit-movie").onclick = submitMovie
         document.getElementById("delete-btn").onclick = deleteMovie
         document.getElementById("add-new-imdb").onclick = addImdbMovie
-    
-        const movies = await fetch(URL,{
-        headers:headers
-       }).then(handleHttpErrors)
-       updateUI(movies);
-    } catch(error){
-    }
 }
 
-  function updateUI(movies){
-    let tableRows = movies.map(m=>`
+  async function updateUI(){
+    try {
+        const movies = await fetch(URL, {
+            headers: headers
+        }).then(handleHttpErrors)
+        let tableRows = movies.map(m=>`
 
     <td>${m.name}</td>
     <td>${m.playTime}</td>
@@ -38,8 +36,10 @@ export async function initMovie(){
 
     </tr>`).join("")
 
-    document.getElementById("tbody").innerHTML=tableRows
-
+        document.getElementById("tbody").innerHTML=sanitizeStringWithTableRows(tableRows)
+    } catch (err) {
+        console.log(err.message)
+    }
   }
 
     
@@ -88,12 +88,14 @@ async function deleteMovie() {
 async function addImdbMovie(){
  let imdb = document.getElementById('imdb-id').value 
  const token = localStorage.token
- headers.append('Authentication''Bearer '+token )
- await fetch(`${URL}+imdb`),{
-   headers: headers,
-   method:'post'
- }).then(handleHttpErrors);
- initMovie();
- 
-
+    const options = {
+        method: "POST",
+        headers: {'Authorization': `Bearer ${token}`,
+            'Content-type': 'application/json'},
+    }
+    try {
+        await fetch(URL+imdb, options).then(res => handleHttpErrors)
+    } catch (err) {
+     console.log(err.message)
+    }
 }
