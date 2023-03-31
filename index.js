@@ -44,6 +44,7 @@ window.addEventListener("load", async () => {
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
+  const templateLandingPage = await loadTemplate("./pages/landingPage/landingPage.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -66,12 +67,10 @@ window.addEventListener("load", async () => {
     })
     .on({
       //For very simple "templates", you can just insert your HTML directly like below
-      "/": () => document.getElementById("content").innerHTML = `
-        <h2>Home</h2>
-        <p style='margin-top:1em;font-size: 1.5em;color:darkgray;'>
-          TBD
-        </p>
-     `,
+      "/landing-page": () => {
+        renderTemplate(templateLandingPage,"content")
+      }
+      ,
       "/signup": () => {
         renderTemplate(templateSignup, "content")
         initSignup()
