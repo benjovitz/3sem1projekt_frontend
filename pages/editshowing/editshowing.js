@@ -7,6 +7,7 @@ const movieURL = API_URL + "/movies/"
 export function initEditShowing(match){
     if (match?.params?.showingid) {
         const showingId = match.params.showingid
+        getSingleShowingDetails(showingId)
         document.getElementById("btn-edit-showing").onclick = evt => editShowing(showingId)
         document.getElementById("btn-delete-showing").onclick = evt => deleteShowing(showingId)
         document.getElementById("btn-openmodal-movie").onclick = evt => getMoviesForShowing()
@@ -17,12 +18,32 @@ export function initEditShowing(match){
     }
 }
 
+async function getSingleShowingDetails(showingId){
+    const token = localStorage.getItem("token")
+    const movieId = document.getElementById("movie-id")
+    const movieName = document.getElementById("movie-name")
+    const price = document.getElementById("movie-price")
+    const dateTime = document.getElementById("movie-date")
+    try{
+        const response = await fetch(URL+showingId,{
+            headers: { 
+                'Authorization': 'Bearer ' + token},
+        }).then(handleHttpErrors)
+        movieId.value = response.movieId
+        movieName.value = response.movieName
+        price.value = response.price
+        dateTime.value = response.dateTime
+        
+    }catch(err){
+        document.getElementById("error-text").innerText = err.message
+    }  
+}
 
 async function editShowing(showingId){
     const token = localStorage.getItem("token")
     const movieId = document.getElementById("movie-id").value
     const price = document.getElementById("movie-price").value
-    const dateTime = document.getElementById("movie-date").value
+    const dateTime = document.getElementById("movie-date").value.replace("T", " ")
     try{
         const response = await fetch(URL+showingId,{
             method:'PUT',
@@ -32,7 +53,7 @@ async function editShowing(showingId){
             body:JSON.stringify({movieId, price, dateTime})
         }).then(handleHttpErrors)
 
-        window.router.navigate("/owner/showings")
+        window.router.navigate("/owner-showings")
     }catch(err){
         document.getElementById("error-text").innerText = err.message
     }

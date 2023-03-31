@@ -8,8 +8,14 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+
 import { initAdmin } from "./pages/admin/admin.js"
 import { initUsers } from "./pages/users/users.js"
+import { initReviews } from "./pages/review/review.js"
+import { initCinemaReviews } from "./pages/cinemaReviews/cinemaReviews.js"
+import { initAddReview } from "./pages/addReview/addReview.js"
+import { initAddUserReview } from "./pages/addUserReview/addUserReview.js"
+
 
 import { initMap } from "./pages/map/map.js";
 import { initEditCinema } from "./pages/editCinema/editCinema.js";
@@ -27,6 +33,8 @@ import { initOwnerShowings } from "./pages/ownershowings/ownershowings.js";
 import { initUserShowings } from "./pages/usershowings/usershowings.js";
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
+import { initCreateCinema } from "./pages/createCinema/createCinema.js"
+import { initUserProfile } from "./pages/profileSite/profileSite.js"
 
 
 window.addEventListener("load", async () => {
@@ -49,10 +57,19 @@ window.addEventListener("load", async () => {
   const templateEditShowing = await loadTemplate("./pages/editshowing/editshowing.html")
   const templateOwnerShowings= await loadTemplate("./pages/ownershowings/ownershowings.html")
   const templateUserShowings = await loadTemplate("./pages/usershowings/usershowings.html")
+  const templateCreateCinema = await loadTemplate("./pages/createCinema/createCinema.html")
 
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
+
+  const templateReviews = await loadTemplate("./pages/review/review.html")
+  const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
+  const templateAddReview = await loadTemplate("./pages/addReview/addReview.html")
+  const templateAddUserReview = await loadTemplate("./pages/addUserReview/addUserReview.html")
+
+  const templateLandingPage = await loadTemplate("./pages/landingPage/landingPage.html")
+  const templateUserProfile = await loadTemplate("./pages/profileSite/profileSite.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -75,23 +92,37 @@ window.addEventListener("load", async () => {
     })
     .on({
       //For very simple "templates", you can just insert your HTML directly like below
-      "/": () => document.getElementById("content").innerHTML = `
-        <h2>Home</h2>
-        <p style='margin-top:1em;font-size: 1.5em;color:darkgray;'>
-          TBD
-        </p>
-     `,
+      "/landing-page": () => {
+        renderTemplate(templateLandingPage,"content")
+      }
+      ,
       "/signup": () => {
         renderTemplate(templateSignup, "content")
         initSignup()
+      },
+      "/": () => {
+        renderTemplate(templateUserProfile, "content")
+        initUserProfile()
       },
         "/admin": () => {
             renderTemplate(templateAdmin, "content")
             initAdmin()
         },
+        "/create-cinema": () => {
+            renderTemplate(templateCreateCinema, "content")
+            initCreateCinema()
+        },
         "/users": () => {
             renderTemplate(templateUsers, "content")
             initUsers()
+        },
+        "/reviews": () => {
+            renderTemplate(templateReviews, "content")
+            initReviews()
+        },
+        "/cinema-reviews": () => {
+            renderTemplate(templateCinemaReviews, "content")
+            initCinemaReviews()
         },
       "/login": () => {
         renderTemplate(templateLogin, "content")
@@ -100,6 +131,14 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
+        "/add-review": (match) => {
+            renderTemplate(templateAddReview,"content")
+            initAddReview(match)
+        },
+        "/add-user-review": (match) => {
+            renderTemplate(templateAddUserReview,"content")
+            initAddUserReview(match)
+        },
       "/map": () => {
         renderTemplate(templateMap,"content")
         initMap()
@@ -116,15 +155,15 @@ window.addEventListener("load", async () => {
         renderTemplate(templateAllCinemas,"content")
         initAllCinemas()
       },
-      "/user/reservations": () => {
+      "/user-reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
       },
-      "/owner/reservations": (match) => {
+      "/owner-reservations": (match) => {
         renderTemplate(templateShowingReservations,"content")
         InitShowingReservations(match)
       },
-      "/create/reservation": (match) => {
+      "/create-reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
 
@@ -134,21 +173,22 @@ window.addEventListener("load", async () => {
             renderTemplate(templateMovie,"content")
             InitMovie()
         },
-      "/create/showing": (match) => {
+      "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)
       },
-      "/edit/showing": (match) => {
+      "/edit-showing": (match) => {
         renderTemplate(templateEditShowing,"content")
         initEditShowing(match)
       },
-      "/user/showings": () => {
+      "/user-showings": () => {
         renderTemplate(templateUserShowings,"content")
         initUserShowings()
       },
-      "/owner/showings": () => {
+      "/owner-showings": () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
+
       }
 
     })
