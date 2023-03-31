@@ -114,31 +114,31 @@ window.addEventListener("load", async () => {
         renderTemplate(templateAllCinemas,"content")
         initAllCinemas()
       },
-      "/user/reservations": () => {
+      "/user-reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
       },
-      "/owner/reservations": (match) => {
+      "/owner-reservations": (match) => {
         renderTemplate(templateShowingReservations,"content")
         InitShowingReservations(match)
       },
-      "/create/reservation": (match) => {
+      "/create-reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
       },
-      "/create/showing": (match) => {
+      "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)
       },
-      "/edit/showing": (match) => {
+      "/edit-showing": (match) => {
         renderTemplate(templateEditShowing,"content")
         initEditShowing(match)
       },
-      "/user/showings": () => {
+      "/user-showings": () => {
         renderTemplate(templateUserShowings,"content")
         initUserShowings()
       },
-      "/owner/showings": () => {
+      "/owner-showings": () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
       }
