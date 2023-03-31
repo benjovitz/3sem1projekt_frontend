@@ -65,6 +65,6 @@ function goToCreateReservation(evt){
     const cinemaId = targetIdSplit[3]
     const showingId = targetIdSplit[4]
     if(targetIdSplit[1]=='create'){
-        window.router.navigate(`/create/reservation?showingid=${showingId}&cinemaid=${cinemaId}`)
+        window.router.navigate(`/create-reservation?showingid=${showingId}&cinemaid=${cinemaId}`)
     }
 }

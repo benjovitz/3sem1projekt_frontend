@@ -69,9 +69,9 @@ function goToEvent(evt){
     const showingId = targetIdSplit[3]
     const cinemaId = targetIdSplit[4]
     if(targetIdSplit[1]=='edit'){
-        window.router.navigate(`/edit/showing?cinemaid=${cinemaId}&showingid=${showingId}`)
+        window.router.navigate(`/edit-showing?cinemaid=${cinemaId}&showingid=${showingId}`)
     }
     if(targetIdSplit[1]=='get'){
-        window.router.navigate(`/owner/reservations?cinemaid=${cinemaId}&showingid=${showingId}`)
+        window.router.navigate(`/owner-reservations?cinemaid=${cinemaId}&showingid=${showingId}`)
     }
 }
