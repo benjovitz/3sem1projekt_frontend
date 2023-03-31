@@ -159,9 +159,7 @@ window.addEventListener("load", async () => {
         "/movie": () => {
             renderTemplate(templateMovie,"content")
             InitMovie()
-        }
-
-      },
+        },
       "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)
