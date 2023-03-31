@@ -81,7 +81,6 @@ async function deleteMovie() {
     headers: headers,
     method:'delete'
   }).then(handleHttpErrors);
-  initMovie();
   }
 
 
