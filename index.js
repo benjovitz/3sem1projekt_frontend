@@ -8,8 +8,14 @@ import {
 
 import { initLogin,logout } from "./pages/login/login.js"
 import { initSignup } from "./pages/signup/signup.js"
+
 import { initAdmin } from "./pages/admin/admin.js"
 import { initUsers } from "./pages/users/users.js"
+import { initReviews } from "./pages/review/review.js"
+import { initCinemaReviews } from "./pages/cinemaReviews/cinemaReviews.js"
+import { initAddReview } from "./pages/addReview/addReview.js"
+import { initAddUserReview } from "./pages/addUserReview/addUserReview.js"
+
 
 import { initMap } from "./pages/map/map.js";
 import { initEditCinema } from "./pages/editCinema/editCinema.js";
@@ -55,6 +61,12 @@ window.addEventListener("load", async () => {
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
+
+  const templateReviews = await loadTemplate("./pages/review/review.html")
+  const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
+  const templateAddReview = await loadTemplate("./pages/addReview/addReview.html")
+  const templateAddUserReview = await loadTemplate("./pages/addUserReview/addUserReview.html")
+
   const templateLandingPage = await loadTemplate("./pages/landingPage/landingPage.html")
 
     if (localStorage.token != null) {
@@ -98,6 +110,14 @@ window.addEventListener("load", async () => {
             renderTemplate(templateUsers, "content")
             initUsers()
         },
+        "/reviews": () => {
+            renderTemplate(templateReviews, "content")
+            initReviews()
+        },
+        "/cinema-reviews": () => {
+            renderTemplate(templateCinemaReviews, "content")
+            initCinemaReviews()
+        },
       "/login": () => {
         renderTemplate(templateLogin, "content")
         initLogin()
@@ -105,6 +125,14 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
+        "/add-review": () => {
+            renderTemplate(templateAddReview,"content")
+            initAddReview()
+        },
+        "/add-user-review": () => {
+            renderTemplate(templateAddUserReview,"content")
+            initAddUserReview()
+        },
       "/map": () => {
         renderTemplate(templateMap,"content")
         initMap()
@@ -132,14 +160,10 @@ window.addEventListener("load", async () => {
       "/create-reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
-
-
       },
         "/movie": () => {
             renderTemplate(templateMovie,"content")
             InitMovie()
-        }
-
       },
       "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
@@ -156,6 +180,7 @@ window.addEventListener("load", async () => {
       "/owner-showings": () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
+
       }
 
     })

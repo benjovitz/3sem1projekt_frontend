@@ -1,0 +1,30 @@
+<template>
+    <h1>Find cinema reviews</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input id="cinema-input" class="form-control" placeholder="Enter cinema-id" required>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row" style="margin-top:2em;">
+        <div class="col-md-3">
+            <button id="btn-get-reviews" class="btn btn-dark car-btn-width">Get reviews</button>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Cinema</th>
+            <th>Comment</th>
+            <th>Score</th>
+            <th>Review by</th>
+        </tr>
+        </thead>
+        <tbody id="table-rows" />
+    </table>
+    <p id="error" style="color:red"></p>
+</template>
