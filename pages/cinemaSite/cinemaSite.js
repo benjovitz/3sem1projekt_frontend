@@ -13,15 +13,16 @@ export async function initCinema(match){
         try {
             const cinema = await fetch(URL+id).then(handleHttpErrors)
             console.log(cinema)
-            getReviews(id)
             getShows(id)
+            getReviews(id)
             renderCinema(cinema)
         } catch (error) {
-            
+           console.log(error) 
         }
     }
     
 }
+
 
 function renderCinema(cinema){
     document.getElementById("cinema-name").innerText=cinema.name
@@ -74,7 +75,6 @@ async function getShows(id){
             <div><p>${show.dateTime}</p></div>
             <button id="btn-create-reservation-${show.cinemaId}-${show.id}" type="button" class="btn btn-primary" style="width:90px; height:50px">Book</button>
             `
-            <div><p>${show.dateTime}</p></div>`
             document.getElementById("showings").appendChild(div)
         });
     } catch (error) {
