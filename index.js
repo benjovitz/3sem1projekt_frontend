@@ -131,13 +131,13 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
-        "/add-review": () => {
+        "/add-review": (match) => {
             renderTemplate(templateAddReview,"content")
-            initAddReview()
+            initAddReview(match)
         },
-        "/add-user-review": () => {
+        "/add-user-review": (match) => {
             renderTemplate(templateAddUserReview,"content")
-            initAddUserReview()
+            initAddUserReview(match)
         },
       "/map": () => {
         renderTemplate(templateMap,"content")
@@ -166,11 +166,13 @@ window.addEventListener("load", async () => {
       "/create-reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
+
+
       },
         "/movie": () => {
             renderTemplate(templateMovie,"content")
             InitMovie()
-      },
+        },
       "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)

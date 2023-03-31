@@ -3,8 +3,13 @@ import { handleHttpErrors } from "../../utils.js";
 
 const URL = API_URL + "/review/";
 let rating = 0
+let cinemaID = 0
 
-export function initAddReview() {
+
+export function initAddReview(match) {
+    if(match?.params?.id) {
+        cinemaID = match.params.id
+    }
     document.getElementById("addReview-btn").onclick = addCinemaReview;
     document.getElementById("stars-container").addEventListener("click", evt => {
         const star = evt.target.closest(".star")
@@ -15,7 +20,7 @@ export function initAddReview() {
     });
 }
 
-async function addCinemaReview(cinemaID) {
+async function addCinemaReview() {
     document.getElementById("error").innerText = ""
 
     const rate = rating
@@ -34,9 +39,12 @@ async function addCinemaReview(cinemaID) {
     }
     try {
         const response = await fetch(URL+"cinema/"+cinemaID, options).then(res => handleHttpErrors(res))
+        window.history.back()
+
     } catch (err) {
         document.getElementById("error").innerText = err.message
     }
+
 }
 
 function updateRating() {
