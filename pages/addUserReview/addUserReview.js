@@ -3,8 +3,12 @@ import { handleHttpErrors } from "../../utils.js";
 
 const URL = API_URL + "/review/";
 let rating = 0
+let username = null
 
-export function initAddUserReview() {
+export function initAddUserReview(match) {
+    if(match?.params?.username) {
+        username = match.params.username
+    }
     document.getElementById("addReview-btn").onclick = addUserReview;
     document.getElementById("stars-container").addEventListener("click", evt => {
         const star = evt.target.closest(".star")
@@ -15,7 +19,7 @@ export function initAddUserReview() {
     });
 }
 
-async function addUserReview(username) {
+async function addUserReview() {
     document.getElementById("error").innerText = ""
 
     const rate = rating

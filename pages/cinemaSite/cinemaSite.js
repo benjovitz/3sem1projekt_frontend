@@ -6,10 +6,12 @@ let URL = API_URL+"/cinema/"
 let headers = getHeaders()
 let oldTicketId
 let oldSeats =[]
+let id = 0
 export async function initCinema(match){
     document.getElementById("showings").onclick=showReservedSeats
+    document.getElementById("review-link").onclick=reviewCinema
     if(match?.params?.id){
-        const id= match.params.id
+        id = match.params.id
         try {
             const cinema = await fetch(URL+id).then(handleHttpErrors)
             console.log(cinema)
@@ -150,4 +152,8 @@ function colorSeats(reservations,color){
             document.getElementById(seat).style.backgroundColor=color
         });
     });
+}
+
+function reviewCinema() {
+    window.router.navigate("add-review?id="+id)
 }

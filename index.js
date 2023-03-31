@@ -118,13 +118,13 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         logout()
       },
-        "/add-review": () => {
+        "/add-review": (match) => {
             renderTemplate(templateAddReview,"content")
-            initAddReview()
+            initAddReview(match)
         },
-        "/add-user-review": () => {
+        "/add-user-review": (match) => {
             renderTemplate(templateAddUserReview,"content")
-            initAddUserReview()
+            initAddUserReview(match)
         },
       "/map": () => {
         renderTemplate(templateMap,"content")
