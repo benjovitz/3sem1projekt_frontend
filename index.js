@@ -19,6 +19,7 @@ import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
 import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
 import { InitUserReservations } from "./pages/userreservations/userreservations.js";
+import { InitMovie } from "./pages/movie/movie.js";
 
 import { initAddShowing } from "./pages/addshowing/addshowing.js";
 import { initEditShowing } from "./pages/editshowing/editshowing.js";
@@ -38,6 +39,7 @@ window.addEventListener("load", async () => {
   const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
   const templateCineamSite = await loadTemplate("./pages/cinemaSite/cinemaSite.html")
   const templateAllCinemas = await loadTemplate("./pages/allCinemas/allCinemas.html")
+  const templateMovie = await loadTemplate("./pages/movie/movie.html")
 
   const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
   const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
@@ -125,6 +127,14 @@ window.addEventListener("load", async () => {
       "/create/reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
+
+
+      },
+        "/movie": () => {
+            renderTemplate(templateMovie,"content")
+            InitMovie()
+        }
+
       },
       "/create/showing": (match) => {
         renderTemplate(templateAddShowing,"content")
@@ -142,6 +152,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
       }
+
     })
     .notFound(() => {
       renderTemplate(templateNotFound, "content")
