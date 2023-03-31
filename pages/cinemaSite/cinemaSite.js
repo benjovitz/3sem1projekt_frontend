@@ -74,8 +74,7 @@ async function getShows(id){
             <div><p>${show.dateTime}</p></div>
             <button id="btn-create-reservation-${show.cinemaId}-${show.id}" type="button" class="btn btn-primary" style="width:90px; height:50px">Book</button>
             `
-
-            
+            <div><p>${show.dateTime}</p></div>`
             document.getElementById("showings").appendChild(div)
         });
     } catch (error) {
