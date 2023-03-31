@@ -21,6 +21,10 @@ import { InitShowingReservations } from "./pages/showingeservations/showingreser
 import { InitUserReservations } from "./pages/userreservations/userreservations.js";
 import { InitMovie } from "./pages/movie/movie.js";
 
+import { initAddShowing } from "./pages/addshowing/addshowing.js";
+import { initEditShowing } from "./pages/editshowing/editshowing.js";
+import { initOwnerShowings } from "./pages/ownershowings/ownershowings.js";
+import { initUserShowings } from "./pages/usershowings/usershowings.js";
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
 
@@ -40,6 +44,11 @@ window.addEventListener("load", async () => {
   const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
   const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
   const templateUserReservations = await loadTemplate("./pages/userreservations/userreservations.html")
+
+  const templateAddShowing = await loadTemplate("./pages/addshowing/addshowing.html")
+  const templateEditShowing = await loadTemplate("./pages/editshowing/editshowing.html")
+  const templateOwnerShowings= await loadTemplate("./pages/ownershowings/ownershowings.html")
+  const templateUserShowings = await loadTemplate("./pages/usershowings/usershowings.html")
 
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
@@ -111,7 +120,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
       },
-      "/showing/reservation": (match) => {
+      "/owner/reservations": (match) => {
         renderTemplate(templateShowingReservations,"content")
         InitShowingReservations(match)
       },
@@ -119,11 +128,31 @@ window.addEventListener("load", async () => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
 
+
       },
         "/movie": () => {
             renderTemplate(templateMovie,"content")
             InitMovie()
         }
+
+      },
+      "/create/showing": (match) => {
+        renderTemplate(templateAddShowing,"content")
+        initAddShowing(match)
+      },
+      "/edit/showing": (match) => {
+        renderTemplate(templateEditShowing,"content")
+        initEditShowing(match)
+      },
+      "/user/showings": () => {
+        renderTemplate(templateUserShowings,"content")
+        initUserShowings()
+      },
+      "/owner/showings": () => {
+        renderTemplate(templateOwnerShowings,"content")
+        initOwnerShowings()
+      }
+
     })
     .notFound(() => {
       renderTemplate(templateNotFound, "content")
