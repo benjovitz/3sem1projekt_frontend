@@ -33,6 +33,7 @@ import { initOwnerShowings } from "./pages/ownershowings/ownershowings.js";
 import { initUserShowings } from "./pages/usershowings/usershowings.js";
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
+import { initCreateCinema } from "./pages/createCinema/createCinema.js"
 
 
 window.addEventListener("load", async () => {
@@ -55,14 +56,18 @@ window.addEventListener("load", async () => {
   const templateEditShowing = await loadTemplate("./pages/editshowing/editshowing.html")
   const templateOwnerShowings= await loadTemplate("./pages/ownershowings/ownershowings.html")
   const templateUserShowings = await loadTemplate("./pages/usershowings/usershowings.html")
+  const templateCreateCinema = await loadTemplate("./pages/createCinema/createCinema.html")
 
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
   const templateUsers = await loadTemplate("./pages/users/users.html")
+
   const templateReviews = await loadTemplate("./pages/review/review.html")
   const templateCinemaReviews = await loadTemplate("./pages/cinemaReviews/cinemaReviews.html")
   const templateAddReview = await loadTemplate("./pages/addReview/addReview.html")
   const templateAddUserReview = await loadTemplate("./pages/addUserReview/addUserReview.html")
+
+  const templateLandingPage = await loadTemplate("./pages/landingPage/landingPage.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -85,12 +90,10 @@ window.addEventListener("load", async () => {
     })
     .on({
       //For very simple "templates", you can just insert your HTML directly like below
-      "/": () => document.getElementById("content").innerHTML = `
-        <h2>Home</h2>
-        <p style='margin-top:1em;font-size: 1.5em;color:darkgray;'>
-          TBD
-        </p>
-     `,
+      "/landing-page": () => {
+        renderTemplate(templateLandingPage,"content")
+      }
+      ,
       "/signup": () => {
         renderTemplate(templateSignup, "content")
         initSignup()
@@ -98,6 +101,10 @@ window.addEventListener("load", async () => {
         "/admin": () => {
             renderTemplate(templateAdmin, "content")
             initAdmin()
+        },
+        "/create-cinema": () => {
+            renderTemplate(templateCreateCinema, "content")
+            initCreateCinema()
         },
         "/users": () => {
             renderTemplate(templateUsers, "content")
@@ -175,6 +182,7 @@ window.addEventListener("load", async () => {
       "/owner-showings": () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
+
       }
 
     })

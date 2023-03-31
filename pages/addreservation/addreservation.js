@@ -29,6 +29,8 @@ export async function initAddReservation(match){
 
 export async function setupSVG(givenOccupiedSeats,cinemaId,pagePositionX){
 
+    seats.length = 0
+
     if(pagePositionX == null){
         pagePositionX = 0
     }

@@ -1,0 +1,19 @@
+<template>
+    <h1>Create your own cinema</h1>
+    <h3>You need to be signed in to create a cinema</h3>
+    <ul id="create-cinema">
+    <li><label for="name">Name</label>
+    <input type="text" id="name" required></li>
+    <li><label for="description">Description</label>
+    <input type="text" id="description" required></li>
+    <li><label for="street">Street</label>
+    <input type="text" id="street" required></li>
+    <li><label for="city">City</label>
+    <input type="text" id="city" required></li>
+    <li><label for="zip">Zip</label>
+    <input type="text" id="zip" required></li>
+    <button id="btn-create-cinema">Create cinema</button>
+</ul>
+    <p style="color: red;" id="error-message"></p>
+    <p style="color: green;" id="success-message"></p>
+</template>
