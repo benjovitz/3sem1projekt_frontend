@@ -1,7 +1,7 @@
 import { API_URL } from "../../settings.js";
 import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 
-const URL = API_URL+"/reservations/"
+const URL = API_URL+"/reservations/zzzz"
 
 export function InitUserReservations(){
     getUserReservations()
