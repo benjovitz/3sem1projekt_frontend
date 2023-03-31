@@ -165,7 +165,7 @@ async function createReservation(showingId){
         body: JSON.stringify({showingId,seats})
     }).then(handleHttpErrors)
 
-    window.router.navigate("/user/reservations")
+    window.router.navigate("/user-reservations")
     }catch(err){
         document.getElementById("error-text").innerText = err.message 
     }
