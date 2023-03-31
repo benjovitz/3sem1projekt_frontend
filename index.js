@@ -34,6 +34,7 @@ import { initUserShowings } from "./pages/usershowings/usershowings.js";
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
 import { initCreateCinema } from "./pages/createCinema/createCinema.js"
+import { initUserProfile } from "./pages/profileSite/profileSite.js"
 
 
 window.addEventListener("load", async () => {
@@ -68,6 +69,7 @@ window.addEventListener("load", async () => {
   const templateAddUserReview = await loadTemplate("./pages/addUserReview/addUserReview.html")
 
   const templateLandingPage = await loadTemplate("./pages/landingPage/landingPage.html")
+  const templateUserProfile = await loadTemplate("./pages/profileSite/profileSite.html")
 
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
@@ -97,6 +99,10 @@ window.addEventListener("load", async () => {
       "/signup": () => {
         renderTemplate(templateSignup, "content")
         initSignup()
+      },
+      "/": () => {
+        renderTemplate(templateUserProfile, "content")
+        initUserProfile()
       },
         "/admin": () => {
             renderTemplate(templateAdmin, "content")
