@@ -19,6 +19,16 @@ Styles used for labels and input fields in boot strap columns
   border: 1px solid lightgray;
 }
 
+
+footer{
+  background-color: #DC143C;
+  color: white;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-radius: 5px;
+}
+
 .chatbox {
   position: fixed;
   bottom: 0;
@@ -26,7 +36,10 @@ Styles used for labels and input fields in boot strap columns
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  width: 40vh;
+  width: 20%;
+  background-color: white;
+  color: black;
+  z-index: 10;
 }
 
 .messages {
@@ -53,7 +66,7 @@ Styles used for labels and input fields in boot strap columns
 }
 
 
-form {
+.formChat {
   display: flex;
   align-items: center;
 }
@@ -75,3 +88,53 @@ button[type="submit"] {
   cursor: pointer;
 }
 
+body{
+  background-color: #212529;
+  color: white;
+}
+
+#seats{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.ticket{
+border-color: #fff;
+border-style: solid;
+width: 80%;
+margin: 5%;
+}
+.ticket div{
+  max-width: fit-content;
+}
+.ticket h5{
+  max-width: fit-content;
+}
+
+.row-cinema{
+ margin: 10px;
+ max-width: min-content;
+}
+.seat{
+  text-align: center;
+  margin: 10px;
+  width: fit-content;
+  border-style:solid;
+  background-color: green;
+}
+
+#showings{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 100%;
+}
+.cinema-header{
+  display: flex;
+  justify-content: center;
+}
+.showing-seats{
+  display: grid;
+  grid-template-columns: 80% 20%;
+}

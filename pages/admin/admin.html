@@ -1,0 +1,38 @@
+<template>
+    <div style="max-width:700px;">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Add role to existing user</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 2em;">
+            <div class="col-md-2">
+                <label for="username"><b>Username</b></label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" placeholder="Enter Username" id="username" required>
+            </div>
+        </div> <br>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="role"><b>Select role</b></label>
+            </div>
+            <select id="role" class="col-md-8">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="CINEMATICER">CINEMATICER</option>
+            </select>
+        </div>
+        <div class="row" style="margin-top:2em">
+            <div class="col-md-3 d-flex align-items-center">
+                <button id="addRole-btn" style="width:100%" class="btn btn-dark car-zero-margin">Add role</button>
+            </div>
+        </div>
+    <div>
+    <p id="error" style="color:red"></p>
+    </div>
+    <div>
+    <p id="succes" style="color:greenyellow"></p>
+    </div>
+    </div>
+</template>

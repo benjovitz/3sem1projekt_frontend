@@ -11,7 +11,6 @@ export function logout(){
   document.getElementById("login-id").style.display="block"
   document.getElementById("logout-id").style.display="none"
   localStorage.clear()
-
 }
 
 
@@ -21,12 +20,13 @@ async function login(evt) {
   const username = document.getElementById("username").value
   const password = document.getElementById("password").value
 
-  //const userDto = {username:username,password:password}
+
   const userDto = { username, password }
+
 
   const options = {
     method: "POST",
-    headers: { "Content-type": "application/json" },
+    headers: { 'Content-type': 'application/json'},
     body: JSON.stringify(userDto)
   }
   try {
