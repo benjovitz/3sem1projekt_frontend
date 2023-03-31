@@ -7,7 +7,7 @@ let headers = getHeaders()
 let oldTicketId
 let oldSeats =[]
 export async function initCinema(match){
-    document.getElementById("showings").onclick=showReservedSeats
+    document.getElementById("showings").onclick = evt => showingEvent(evt)
     if(match?.params?.id){
         const id= match.params.id
         try {
@@ -62,6 +62,7 @@ async function getShows(id){
         const shows = await fetch (API_URL+"/showings/cinema/"+id,{
             headers: headers
         }).then(handleHttpErrors)
+        
         console.log(shows)
         shows.forEach(show => {
             const div = document.createElement("div")
@@ -70,11 +71,15 @@ async function getShows(id){
             div.innerHTML=`
             <h5>${show.movieName}</h5>
             <h5>${show.price}</h5>
-            <div><p>${show.localDateTime}</p></div>`
+            <div><p>${show.dateTime}</p></div>
+            <button id="btn-create-reservation-${show.cinemaId}-${show.id}" type="button" class="btn btn-primary" style="width:90px; height:50px">Book</button>
+            `
+
+            
             document.getElementById("showings").appendChild(div)
         });
     } catch (error) {
-        
+        console.log(error.message)
     }
 }
 
@@ -151,3 +156,18 @@ function colorSeats(reservations,color){
         });
     });
 }
+
+function showingEvent(evt){
+        const target = evt.target
+        const targetId = target.id
+        const targetIdSplit = targetId.split("-")
+        const cinemaId = targetIdSplit[3]
+        const showingId = targetIdSplit[4]
+        if(targetIdSplit[1]=='create'){
+            window.router.navigate(`/create-reservation?showingid=${showingId}&cinemaid=${cinemaId}`)
+        }
+        else{
+            showReservedSeats(evt)
+        }
+}
+
