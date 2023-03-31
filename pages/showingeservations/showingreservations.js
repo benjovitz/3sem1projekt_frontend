@@ -59,7 +59,7 @@ function makeReservationTableRow(showingReservation){
 }
 
 async function makeModalBody(evt, showingId, cinemaId){
-    seats.length = 0
+
     const target = evt.target
     const targetId = target.id
     
