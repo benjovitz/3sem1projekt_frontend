@@ -26,6 +26,7 @@ import { initOwnerShowings } from "./pages/ownershowings/ownershowings.js";
 import { initUserShowings } from "./pages/usershowings/usershowings.js";
 
 import { initChatRobot } from "./pages/chatRobot/chatRobot.js";
+import { initCreateCinema } from "./pages/createCinema/createCinema.js"
 
 
 window.addEventListener("load", async () => {
@@ -47,6 +48,7 @@ window.addEventListener("load", async () => {
   const templateEditShowing = await loadTemplate("./pages/editshowing/editshowing.html")
   const templateOwnerShowings= await loadTemplate("./pages/ownershowings/ownershowings.html")
   const templateUserShowings = await loadTemplate("./pages/usershowings/usershowings.html")
+  const templateCreateCinema = await loadTemplate("./pages/createCinema/createCinema.html")
 
   document.getElementById("btn-send-chat").onclick = initChatRobot
   const templateAdmin = await loadTemplate("./pages/admin/admin.html")
@@ -86,6 +88,10 @@ window.addEventListener("load", async () => {
         "/admin": () => {
             renderTemplate(templateAdmin, "content")
             initAdmin()
+        },
+        "/create-cinema": () => {
+            renderTemplate(templateCreateCinema, "content")
+            initCreateCinema()
         },
         "/users": () => {
             renderTemplate(templateUsers, "content")

@@ -70,7 +70,7 @@ async function getShows(id){
             div.innerHTML=`
             <h5>${show.movieName}</h5>
             <h5>${show.price}</h5>
-            <div><p>${show.localDateTime}</p></div>`
+            <div><p>${show.dateTime}</p></div>`
             document.getElementById("showings").appendChild(div)
         });
     } catch (error) {
