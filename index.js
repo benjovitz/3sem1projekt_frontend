@@ -19,6 +19,7 @@ import { initAllCinemas } from "./pages/allCinemas/allCinemas.js";
 import { initAddReservation } from "./pages/addreservation/addreservation.js";
 import { InitShowingReservations } from "./pages/showingeservations/showingreservations.js";
 import { InitUserReservations } from "./pages/userreservations/userreservations.js";
+import { InitMovie } from "./pages/movie/movie.js";
 
 import { initAddShowing } from "./pages/addshowing/addshowing.js";
 import { initEditShowing } from "./pages/editshowing/editshowing.js";
@@ -39,6 +40,7 @@ window.addEventListener("load", async () => {
   const templateEditCinema = await loadTemplate("./pages/editCinema/editCinema.html")
   const templateCineamSite = await loadTemplate("./pages/cinemaSite/cinemaSite.html")
   const templateAllCinemas = await loadTemplate("./pages/allCinemas/allCinemas.html")
+  const templateMovie = await loadTemplate("./pages/movie/movie.html")
 
   const templateAddReservation = await loadTemplate("./pages/addreservation/addreservation.html")
   const templateShowingReservations = await loadTemplate("./pages/showingeservations/showingreservations.html")
@@ -120,34 +122,43 @@ window.addEventListener("load", async () => {
         renderTemplate(templateAllCinemas,"content")
         initAllCinemas()
       },
-      "/user/reservations": () => {
+      "/user-reservations": () => {
         renderTemplate(templateUserReservations, "content")
         InitUserReservations()
       },
-      "/owner/reservations": (match) => {
+      "/owner-reservations": (match) => {
         renderTemplate(templateShowingReservations,"content")
         InitShowingReservations(match)
       },
-      "/create/reservation": (match) => {
+      "/create-reservation": (match) => {
         renderTemplate(templateAddReservation,"content")
         initAddReservation(match)
+
+
       },
-      "/create/showing": (match) => {
+        "/movie": () => {
+            renderTemplate(templateMovie,"content")
+            InitMovie()
+        }
+
+      },
+      "/create-showing": (match) => {
         renderTemplate(templateAddShowing,"content")
         initAddShowing(match)
       },
-      "/edit/showing": (match) => {
+      "/edit-showing": (match) => {
         renderTemplate(templateEditShowing,"content")
         initEditShowing(match)
       },
-      "/user/showings": () => {
+      "/user-showings": () => {
         renderTemplate(templateUserShowings,"content")
         initUserShowings()
       },
-      "/owner/showings": () => {
+      "/owner-showings": () => {
         renderTemplate(templateOwnerShowings,"content")
         initOwnerShowings()
       }
+
     })
     .notFound(() => {
       renderTemplate(templateNotFound, "content")

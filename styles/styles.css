@@ -138,6 +138,10 @@ margin: 5%;
   display: grid;
   grid-template-columns: 80% 20%;
 }
+
 #create-cinema li{
 margin: 10px;
+
+#tbody{
+  color: #ccc;
 }
