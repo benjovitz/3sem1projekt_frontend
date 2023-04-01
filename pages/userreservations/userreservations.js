@@ -4,7 +4,10 @@ import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 const URL = API_URL+"/reservations/"
 
 export function InitUserReservations(){
-    getUserReservations()
+    if (localStorage.token == null) {
+        document.getElementById("error-text").innerText = 'You must be logged in to access this feature'
+    }else{
+    getUserReservations()}
 }
 
 export async function getUserReservations(){

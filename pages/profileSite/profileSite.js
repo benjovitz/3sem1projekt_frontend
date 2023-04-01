@@ -2,10 +2,13 @@ import { handleHttpErrors } from "../../utils.js";
 import { getHeaders,API_URL } from "../../settings.js";
 
 let headers = getHeaders()
-export async function initUserProfile(){
-document.getElementById("btn-save-userinfo").onclick=updateUserInfo
-getUserInfo()
 
+headers.append("content-type","application/json")
+
+
+export async function initUserProfile(){
+    document.getElementById("btn-save-userinfo").onclick=updateUserInfo
+    getUserInfo()
 }
 
 function renderUserInfo(response){

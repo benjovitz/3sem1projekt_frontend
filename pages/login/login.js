@@ -1,4 +1,4 @@
-import { API_URL } from "../../settings.js"
+import { API_URL, setTokenHeader } from "../../settings.js"
 import {handleHttpErrors} from "../../utils.js"
 
 const URL = API_URL + "/auth/login"
@@ -10,7 +10,10 @@ export function initLogin() {
 export function logout(){
   document.getElementById("login-id").style.display="block"
   document.getElementById("logout-id").style.display="none"
+  document.getElementById("nav-profile").style.display="none"
+  document.getElementById("signup-id").style.display="block"
   localStorage.clear()
+  window.router.navigate("/")
 }
 
 
@@ -37,6 +40,10 @@ async function login(evt) {
 
     document.getElementById("login-id").style.display="none"
     document.getElementById("logout-id").style.display="block"
+    document.getElementById("nav-profile").style.display="block"
+    document.getElementById("signup-id").style.display="none"
+
+    setTokenHeader()
 
     window.router.navigate("")
   } catch (err) {

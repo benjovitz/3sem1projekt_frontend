@@ -4,9 +4,12 @@ import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 const URL = API_URL + '/showings/user'
 
 export function initUserShowings(){
+    if (localStorage.token == null) {
+        document.getElementById("error-text").innerText = 'You must be logged in to access this feature'
+    }else{
     getAllShowings()
     document.getElementById("tbody").onclick = evt => goToCreateReservation(evt)
-    document.getElementById("btn-search-city").onclick = evt => getAllShowings()
+    document.getElementById("btn-search-city").onclick = evt => getAllShowings()}
 }
 
 async function getAllShowings(){
