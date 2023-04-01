@@ -23,7 +23,7 @@ async function createShowing(cinemaId){
     const token = localStorage.getItem("token")
     const movieId = document.getElementById("movie-id").value
     const price = document.getElementById("movie-price").value
-    const dateTime = document.getElementById("movie-date").value
+    const dateTime = document.getElementById("movie-date").value.replace("T", " ")
     try{
         const response = await fetch(URL,{
             method:'POST',
@@ -33,7 +33,7 @@ async function createShowing(cinemaId){
             body:JSON.stringify({movieId, cinemaId, price, dateTime})
         }).then(handleHttpErrors)
 
-        //window.router.navigate("/")
+        window.router.navigate("/edit-cinema")
     }catch(err){
         document.getElementById("error-text").innerText = err.message
     }

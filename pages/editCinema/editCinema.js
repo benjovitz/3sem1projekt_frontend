@@ -13,7 +13,6 @@ export async function initEditCinema(){
         const cinema = await fetch(URL+"edit",{
             headers:headers
         }).then(handleHttpErrors)
-        console.log(cinema)
         renderCinema(cinema)
     } catch (error) {
         
@@ -28,11 +27,11 @@ let tableRows = cinema.map(c=>`
 <td><input id="cinema-street${c.id}" type="text" value="${c.street}"></td>
 <td><input id="cinema-city${c.id}" type="text" value="${c.city}"></td>
 <td><input id="cinema-zip${c.id}" type="text" value="${c.zip}"></td>
-<td>${c.rating}</td>
-<td>${c.numberOfRatings}</td>
-<td><button id="btn_edit_${c.id}">save changes</button></td>
-<td><button id="btn_delete_${c.id}">Delete</button></td>
+<td><button id="btn_edit_${c.id}" type="button" class="btn btn-primary">Save changes</button></td>
+<td><button id="btn_delete_${c.id}" type="button" class="btn btn-warning">Delete cinema</button></td>
+<td><button id="btn_showing_${c.id}" type="button" class="btn btn-secondary">Add Showing</button></td>
 </tr>`).join("")
+
 document.getElementById("tbody").innerHTML=tableRows
 }
 
@@ -55,6 +54,8 @@ switch (action) {
     case "delete":
         deleteCinema(id)
         break;
+    case "showing":
+        window.router.navigate(`/create-showing?cinemaid=${id}`)
     
 }
 
@@ -80,7 +81,6 @@ async function editCinema(id){
 }
 
 async function deleteCinema(id){
-    console.log("hej")
     try {
         await fetch(URL+id,{
            headers: headers,
