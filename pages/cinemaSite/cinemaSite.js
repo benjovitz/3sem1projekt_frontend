@@ -14,7 +14,6 @@ export async function initCinema(match){
         id = match.params.id
         try {
             const cinema = await fetch(URL+id).then(handleHttpErrors)
-            console.log(cinema)
             getShows(id)
             getReviews(id)
             renderCinema(cinema)
@@ -41,10 +40,10 @@ function renderCinema(cinema){
 async function getReviews(id){
     
     try {
+        
         const reviews = await fetch (API_URL+"/review/cinema/"+id,{
             headers: headers
         }).then(handleHttpErrors)
-        console.log(reviews)
         reviews.forEach(review => {
             const div = document.createElement("div")
             div.innerHTML=`
@@ -65,7 +64,6 @@ async function getShows(id){
             headers: headers
         }).then(handleHttpErrors)
 
-        console.log(shows)
         shows.forEach(show => {
             const div = document.createElement("div")
             div.className="ticket"

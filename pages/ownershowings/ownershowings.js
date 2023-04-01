@@ -4,9 +4,12 @@ import { handleHttpErrors, sanitizeStringWithTableRows } from "../../utils.js";
 const URL = API_URL + '/showings/owner'
 
 export function initOwnerShowings(){
+    if (localStorage.token == null) {
+        document.getElementById("error-text").innerText = 'You must be logged in to access this feature'
+    }else{
     getAllShowings()
     document.getElementById("tbody").onclick = evt => goToEvent(evt)
-    document.getElementById("btn-search-cinema").onclick = evt => getAllShowings()
+    document.getElementById("btn-search-cinema").onclick = evt => getAllShowings()}
 }
 
 async function getAllShowings(){

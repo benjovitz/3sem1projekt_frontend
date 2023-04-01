@@ -8,6 +8,9 @@ let headers = getHeaders()
 
 
 export async function initEditCinema(){
+    if (localStorage.token == null) {
+        document.getElementById("error-text").innerText = 'You must be logged in to access this feature'
+    }else{
     document.getElementById("tbody").onclick=buttons
     try {
         const cinema = await fetch(URL+"edit",{
@@ -15,8 +18,9 @@ export async function initEditCinema(){
         }).then(handleHttpErrors)
         renderCinema(cinema)
     } catch (error) {
-        
+        document.getElementById("error-text").innerText = error      
     }
+}
 }
 
 function renderCinema(cinema){

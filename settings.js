@@ -6,7 +6,11 @@ export const FETCH_NO_API_ERROR = " (Is the API online or did the endpoint exist
 
 let headers = new Headers()
 
+headers.append("Authorization","Bearer "+localStorage.getItem("token"))
+
+export function setTokenHeader(){
 headers.set("Authorization","Bearer "+localStorage.getItem("token"))
+}
 
 export function getHeaders(){
     return headers;

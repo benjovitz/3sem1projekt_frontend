@@ -74,6 +74,9 @@ window.addEventListener("load", async () => {
     if (localStorage.token != null) {
         document.getElementById("login-id").style.display="none"
         document.getElementById("logout-id").style.display="block"
+        document.getElementById("nav-profile").style.display="block"
+        document.getElementById("signup-id").style.display="none"
+
     }
 
 
@@ -92,7 +95,7 @@ window.addEventListener("load", async () => {
     })
     .on({
       //For very simple "templates", you can just insert your HTML directly like below
-      "/landing-page": () => {
+      "/": () => {
         renderTemplate(templateLandingPage,"content")
       }
       ,
@@ -100,7 +103,7 @@ window.addEventListener("load", async () => {
         renderTemplate(templateSignup, "content")
         initSignup()
       },
-      "/": () => {
+      "/profile": () => {
         renderTemplate(templateUserProfile, "content")
         initUserProfile()
       },
